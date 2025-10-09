@@ -18,23 +18,17 @@ export default function Orders() {
   const { storedValue } = useLocalStorage<LoginResponse | null>('session', null)
 
   const createOrder = async (clientId: string, productsToOrder: Array<OrderProduct>) => {
-    
-      console.log({clientId, productsToOrder})
-
-      try {
-        await createNewOrder({clientId, productsToOrder}, storedValue?.token!)
-        
-        fetchOrders()
-      } catch (error: any) {
-        setError(error.message);
-      }
-  
+    try {
+      await createNewOrder({ clientId, productsToOrder }, storedValue?.token!)
+      fetchOrders()
+    } catch (error: any) {
+      setError(error.message);
     }
+  }
 
   const fetchOrders = async () => {
     try {
       const data = await getOrders(storedValue?.token!);
-      console.log(data)
       setOrdersList(data);
     } catch (error: any) {
       setError(error.message);
@@ -50,13 +44,13 @@ export default function Orders() {
   return (
     <div className="flex w-full container gap-6 m-auto px-6 my-4">
       {
-        ordersList.length <= 0 
-        ? <Alert variant="default">
+        ordersList.length <= 0
+          ? <Alert variant="default" className="h-[80px]">
             <GoAlert />
             <AlertTitle>Oops!</AlertTitle>
             <AlertDescription>Todavia no se han realizado pedidos</AlertDescription>
-          </Alert> 
-        : <TableOrders data={ordersList} />
+          </Alert>
+          : <TableOrders data={ordersList} />
       }
       <AddOrderForm onCreateOrder={createOrder} />
     </div>

@@ -1,8 +1,9 @@
+import { API_URL } from "@/lib/config";
 import { Costumer } from "../interfaces/Costumer";
 import { Order } from "../interfaces/Order";
 
 export async function getCostumers(token: string): Promise<Order> {
-    const response = await fetch("http://localhost:3001/api/clients", {
+    const response = await fetch(`${API_URL}/clients`, {
         method: "GET",
         headers: { 
             "Content-Type": "application/json",
@@ -19,7 +20,7 @@ export async function getCostumers(token: string): Promise<Order> {
 }
 
 export async function addCostumer(costumerData: Costumer, token: string): Promise<any> {
-    const response = await fetch("http://localhost:3001/api/clients", {
+    const response = await fetch(`${API_URL}/clients`, {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",

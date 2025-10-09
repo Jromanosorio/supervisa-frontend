@@ -1,7 +1,8 @@
+import { API_URL } from "@/lib/config";
 import { Order } from "../interfaces/Order";
 
 export async function getOrders(token: string): Promise<Order> {
-    const response = await fetch("http://localhost:3001/api/orders", {
+    const response = await fetch(`${API_URL}/orders`, {
         method: "GET",
         headers: { 
             "Content-Type": "application/json",

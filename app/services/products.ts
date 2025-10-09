@@ -1,7 +1,8 @@
+import { API_URL } from "@/lib/config";
 import { Product } from "../interfaces/Product";
 
 export async function getProductList(token: string): Promise<Product> {
-    const response = await fetch("http://localhost:3001/api/products", {
+    const response = await fetch(`${API_URL}/products`, {
         method: "GET",
         headers: { 
             "Content-Type": "application/json",
@@ -18,7 +19,7 @@ export async function getProductList(token: string): Promise<Product> {
 }
 
 export async function addProduct(code: number, name: string, price: number, stock: number, token: string): Promise<any> {
-    const response = await fetch("http://localhost:3001/api/products", {
+    const response = await fetch(`${API_URL}/products`, {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
