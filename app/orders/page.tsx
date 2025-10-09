@@ -9,24 +9,33 @@ import { Order, OrderProduct } from "../interfaces/Order";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { LoginResponse } from "../interfaces/Login";
 import AddOrderForm from "../components/form/add.order";
+import { MoonLoader } from "react-spinners";
 
 export default function Orders() {
   const [ordersList, setOrdersList] = useState<any>([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const { storedValue } = useLocalStorage<LoginResponse | null>('session', null)
 
-  const createOrder = async (clientId: string, productsToOrder: Array<OrderProduct>) => {
+  const createOrder = async (order: Order) => {
+    
+
+        console.log(order)
+
     try {
-      await createNewOrder({ clientId, productsToOrder }, storedValue?.token!)
+      await createNewOrder(order, storedValue?.token!)
       fetchOrders()
     } catch (error: any) {
-      setError(error.message);
+      setFormError(error.message);
     }
   }
 
   const fetchOrders = async () => {
+    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    
     try {
       const data = await getOrders(storedValue?.token!);
       setOrdersList(data);
@@ -44,6 +53,12 @@ export default function Orders() {
   return (
     <div className="flex w-full container gap-6 m-auto px-6 my-4">
       {
+        loading ?  (
+        <div className="flex flex-col items-center justify-center w-full h-[200px] text-gray-500">
+          <MoonLoader className="animate-spin w-8 h-8 mb-2" />
+          <p>Cargando pedidos...</p>
+        </div>
+      ) :
         ordersList.length <= 0
           ? <Alert variant="default" className="h-[80px]">
             <GoAlert />
@@ -52,7 +67,7 @@ export default function Orders() {
           </Alert>
           : <TableOrders data={ordersList} />
       }
-      <AddOrderForm onCreateOrder={createOrder} />
+      <AddOrderForm onCreateOrderFn={createOrder} error={formError} />
     </div>
   );
 }

@@ -11,26 +11,29 @@ import TableCostumers from "../components/table/table.costumers";
 import AddCostumerForm from "../components/form/add.costumer";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { LoginResponse } from "../interfaces/Login";
+import { Costumer } from "../interfaces/Costumer";
+import { MoonLoader } from "react-spinners";
 
 export default function Costumers() {
   const [costumersList, setCostumersList] = useState<any>([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const { storedValue } = useLocalStorage<LoginResponse | null>('session', null)
 
-  const createCostumer = async (id: string, name: string, email: string, address: string) => {
+  const createCostumer = async (costumer: Costumer) => {
     try {
-      await addCostumer({id, name, email, address}, storedValue?.token!)
-      
+      await addCostumer(costumer, storedValue?.token!)
       fetchCostumers()
     } catch (error: any) {
-      setError(error.message);
+      setFormError(error.message);
     }
-
   }
 
   const fetchCostumers = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     try {
       const data = await getCostumers(storedValue?.token!);
       setCostumersList(data);
@@ -48,6 +51,12 @@ export default function Costumers() {
   return (
     <div className="flex w-full container gap-6 m-auto px-6 mt-10">
       {
+        loading ?  (
+        <div className="flex flex-col items-center justify-center w-full h-[200px] text-gray-500">
+          <MoonLoader className="animate-spin w-8 h-8 mb-2" />
+          <p>Cargando clientes...</p>
+        </div>
+      ) :
         costumersList.length <= 0
           ? <Alert variant="default" className="h-[80px]">
             <GoAlert />
@@ -56,7 +65,7 @@ export default function Costumers() {
           </Alert>
           : <TableCostumers data={costumersList} />
       }
-      <AddCostumerForm onCreateCostumer={createCostumer} />
+      <AddCostumerForm onCreateCostumerFn={createCostumer} error={formError} />
     </div>
   );
 }
