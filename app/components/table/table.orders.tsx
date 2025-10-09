@@ -9,8 +9,8 @@ interface TableProps {
 export default function TableOrders(props: TableProps) {
   return (
     <Table>
-      <TableHeader>
-        <TableRow className="bg-blue-300">
+      <TableHeader className="bg-blue-300">
+        <TableRow>
           <TableHead className="font-bold">Nombre del cliente</TableHead>
           <TableHead className="font-bold">Products</TableHead>
           <TableHead className="font-bold">Stock</TableHead>

@@ -19,7 +19,7 @@ export async function getOrders(token: string): Promise<Order> {
 }
 
 export async function createNewOrder(order: Order, token: string): Promise<any> {
-    const response = await fetch("http://localhost:3001/api/orders", {
+    const response = await fetch(`${API_URL}/orders`, {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export async function createNewOrder(order: Order, token: string): Promise<any> 
 
     if (!response.ok) {
         const error = await response.json();
-        
+        console.log(error)
         throw new Error(error.message || "Error creando el pedido");
     }
 

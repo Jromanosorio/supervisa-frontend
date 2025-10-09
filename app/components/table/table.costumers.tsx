@@ -7,8 +7,9 @@ interface TableProps {
 export default function TableCostumers(props: TableProps) {
     return (
         <Table>
-            <TableHeader>
+            <TableHeader className="bg-blue-300">
                 <TableRow>
+                    <TableHead className="font-semibold">ID</TableHead>
                     <TableHead className="font-semibold">Nombre</TableHead>
                     <TableHead className="font-semibold">Email</TableHead>
                     <TableHead className="font-semibold">Direccion</TableHead>
@@ -17,6 +18,7 @@ export default function TableCostumers(props: TableProps) {
             <TableBody>
                 {props.data.map((user: any) => (
                     <TableRow key={user.id}>
+                        <TableCell>{user.id}</TableCell>
                         <TableCell>{user.name}</TableCell>
                         <TableCell>{user.email}</TableCell>
                         <TableCell>{user.address}</TableCell>
