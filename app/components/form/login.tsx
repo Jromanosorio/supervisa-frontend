@@ -30,8 +30,8 @@ export default function LoginForm() {
       
       setValue(data);
       alert("Inicio de sesión exitoso ✅");
+      window.location.href = '/'
       
-       window.location.href = '/'
     } catch (err: any) {
       setError(err.message);
     } finally {

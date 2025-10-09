@@ -22,9 +22,6 @@ export function useLocalStorage<T>(key: string, value: T) {
   };
 
   const removeValue = () => {
-
-    console.log(key)
-
     try {
       localStorage.removeItem(key);
       setStoredValue(value);
