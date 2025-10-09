@@ -7,7 +7,7 @@ interface TableProps {
 
 export default function TableProducts(props: TableProps) {
   return (
-    <Table>
+    <Table className="w-full">
       <TableHeader>
         <TableRow className="bg-blue-300">
           <TableHead className="font-bold">Producto</TableHead>

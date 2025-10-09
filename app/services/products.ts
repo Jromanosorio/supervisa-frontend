@@ -1,7 +1,13 @@
 import { Product } from "../interfaces/Product";
 
-export async function getProductList(): Promise<Product> {
-    const response = await fetch("http://localhost:3001/api/products")
+export async function getProductList(token: string): Promise<Product> {
+    const response = await fetch("http://localhost:3001/api/products", {
+        method: "GET",
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+    })
 
     if (!response.ok) {
         const error = await response.json();
@@ -11,7 +17,7 @@ export async function getProductList(): Promise<Product> {
     return response.json();
 }
 
-export async function addProduct(code: string, name: string, price: string, stock: string, token: string): Promise<any> {
+export async function addProduct(code: number, name: string, price: number, stock: number, token: string): Promise<any> {
     const response = await fetch("http://localhost:3001/api/products", {
         method: "POST",
         headers: { 
@@ -23,7 +29,7 @@ export async function addProduct(code: string, name: string, price: string, stoc
 
     if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || "Error creando el producto");
+        throw new Error(error.message );
     }
 
     return response.json();
