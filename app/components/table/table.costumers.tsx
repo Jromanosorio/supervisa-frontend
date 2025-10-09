@@ -11,9 +11,7 @@ export default function TableCostumers(props: TableProps) {
                 <TableRow>
                     <TableHead className="font-semibold">Nombre</TableHead>
                     <TableHead className="font-semibold">Email</TableHead>
-                    <TableHead className="font-semibold">Rol</TableHead>
-                    <TableHead className="font-semibold">Telefono</TableHead>
-                    <TableHead className="font-semibold text-center">Opciones</TableHead>
+                    <TableHead className="font-semibold">Direccion</TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
