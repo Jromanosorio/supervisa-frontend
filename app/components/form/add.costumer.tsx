@@ -44,7 +44,7 @@ export default function AddCostumerForm(props: formProps) {
                 </div>
                 <div className="mb-4">
                     <Label className="text-sm font-medium text-gray-700 mb-2">Email<span className="text-red-500">*</span></Label>
-                    <Input onChange={(e) => { setEmail(e.target.value) }} required className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" type="string" value={email} />
+                    <Input onChange={(e) => { setEmail(e.target.value) }} required className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm" type="email" value={email} />
                 </div>
                 <div className="mb-4">
                     <Label className="text-sm font-medium text-gray-700 mb-2">Direccion<span className="text-red-500">*</span></Label>
