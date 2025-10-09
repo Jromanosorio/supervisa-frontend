@@ -1,7 +1,13 @@
 import { Order } from "../interfaces/Order";
 
-export async function getOrders(): Promise<Order> {
-    const response = await fetch("http://localhost:3001/api/orders")
+export async function getOrders(token: string): Promise<Order> {
+    const response = await fetch("http://localhost:3001/api/orders", {
+        method: "GET",
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
 
     if (!response.ok) {
         const error = await response.json();
@@ -11,18 +17,19 @@ export async function getOrders(): Promise<Order> {
     return response.json();
 }
 
-export async function createOrder(code: string, name: string, price: string, stock: string, token: string): Promise<any> {
+export async function createNewOrder(order: Order, token: string): Promise<any> {
     const response = await fetch("http://localhost:3001/api/orders", {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({ code, name, price, stock }),
+        body: JSON.stringify(order),
     });
 
     if (!response.ok) {
         const error = await response.json();
+        
         throw new Error(error.message || "Error creando el pedido");
     }
 

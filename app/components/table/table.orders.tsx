@@ -1,3 +1,4 @@
+import { OrderProduct } from "@/app/interfaces/Order";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import FormatNumber from "@/utils/numberFormatter";
 
@@ -10,17 +11,23 @@ export default function TableOrders(props: TableProps) {
     <Table>
       <TableHeader>
         <TableRow className="bg-blue-300">
-          <TableHead className="font-bold">Producto</TableHead>
-          <TableHead className="font-bold">Precio</TableHead>
+          <TableHead className="font-bold">Nombre del cliente</TableHead>
+          <TableHead className="font-bold">Products</TableHead>
           <TableHead className="font-bold">Stock</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {props.data.map((product) => (
-          <TableRow key={product.code}>
-            <TableCell>{product.name}</TableCell>
-            <TableCell>{FormatNumber(product.price)}</TableCell>
-            <TableCell className="">{product.stock}</TableCell>
+        {props.data.map((order) => (
+          <TableRow key={order._id}>
+            <TableCell>{order.clientName}</TableCell>
+            <TableCell>{order.products.map((item: OrderProduct, idx: number) => {
+              return(
+                <p key={idx}>{item.productName} x{item.quantity}</p>
+              )
+            })}
+
+            </TableCell>
+            <TableCell>{FormatNumber(order.total)}</TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -1,4 +1,4 @@
-interface OrderProduct {
+export interface OrderProduct {
     productCode: number;
     productName: string;
     quantity: number;
@@ -6,7 +6,5 @@ interface OrderProduct {
 
 export interface Order {
     clientId: string;
-    clientName: string;
-    products: Array<OrderProduct>;
-    total: number;
+    productsToOrder: Array<OrderProduct>;
 }
