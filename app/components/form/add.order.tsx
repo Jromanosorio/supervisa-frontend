@@ -3,10 +3,12 @@ import { GoArrowDown, GoPlus, GoTrash } from "react-icons/go";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { OrderProduct } from "@/app/interfaces/Order";
+import { Order, OrderProduct } from "@/app/interfaces/Order";
+import { useProductStore } from "@/app/store/useProductStore";
 
 interface formProps {
-  onCreateOrder: (clientId: string, productsToOrder: Array<OrderProduct>) => void;
+  error: string | null;
+  onCreateOrderFn: (order: Order) => void;
 }
 
 export default function AddOrderForm(props: formProps) {
@@ -15,24 +17,17 @@ export default function AddOrderForm(props: formProps) {
   const [selectedProduct, setSelectedProduct] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  // Opcional: podrías reemplazar esto luego con datos reales desde tu backend
-  const productOptions = [
-    { code: 1, productName: "Laptop Gaming Pro", price: 1299.99 },
-    { code: 2, productName: "Smartphone Ultra", price: 899.99 },
-    { code: 3, productName: "Auriculares Inalámbricos", price: 199.99 },
-    { code: 4, productName: "Tablet Pro", price: 599.99 },
-    { code: 5, productName: "Monitor 4K", price: 399.99 },
-  ];
+  const { productList } = useProductStore()
 
   const addProduct = () => {
     if (!selectedProduct || quantity < 1) return;
 
-    const product = productOptions.find((p) => p.code === selectedProduct);
+    const product = productList.find((p) => p.code === selectedProduct);
     if (!product) return;
 
     const newProduct: OrderProduct = {
       productCode: product.code,
-      productName: product.productName,
+      productName: product.name,
       quantity: quantity,
     };
 
@@ -48,7 +43,7 @@ export default function AddOrderForm(props: formProps) {
 
   const createOrder = (e: React.FormEvent) => {
     e.preventDefault();
-    props.onCreateOrder(clientId, productsToOrder);
+    props.onCreateOrderFn({clientId, productsToOrder});
     setClientId("");
     setProductsToOrder([]);
   };
@@ -71,8 +66,6 @@ export default function AddOrderForm(props: formProps) {
             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           />
         </div>
-
-        {/* PRODUCTO Y CANTIDAD */}
         <div className="flex gap-4 items-end">
           <div>
             <Label className="block text-sm font-medium text-gray-700 mb-2">
@@ -85,9 +78,9 @@ export default function AddOrderForm(props: formProps) {
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm appearance-none pr-8 cursor-pointer"
               >
                 <option value="">Seleccionar producto</option>
-                {productOptions.map((p) => (
+                {productList.map((p) => (
                   <option key={p.code} value={p.code}>
-                    {p.productName} - ${p.price}
+                    {p.name} - ${p.price}
                   </option>
                 ))}
               </select>
@@ -95,6 +88,8 @@ export default function AddOrderForm(props: formProps) {
             </div>
           </div>
 
+        </div>
+        <div className="flex items-end gap-5">
           <div>
             <Label className="block text-sm font-medium text-gray-700 mb-2">
               Cantidad
@@ -107,7 +102,6 @@ export default function AddOrderForm(props: formProps) {
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             />
           </div>
-
           <div>
             <Button
               type="button"
@@ -119,8 +113,6 @@ export default function AddOrderForm(props: formProps) {
             </Button>
           </div>
         </div>
-
-        {/* LISTA DE PRODUCTOS AGREGADOS */}
         {productsToOrder.length > 0 && (
           <div className="mt-4 border-t pt-4">
             <h4 className="text-sm font-semibold mb-2">Productos agregados:</h4>
@@ -148,6 +140,7 @@ export default function AddOrderForm(props: formProps) {
             </ul>
           </div>
         )}
+        {props.error && <span className="text-red-500 my-2 text-sm font-bold">{props.error}</span>}
         <div>
           <Button type="submit" className="cursor-pointer w-full mt-2">
             Guardar

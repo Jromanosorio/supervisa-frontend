@@ -8,8 +8,8 @@ interface TableProps {
 export default function TableProducts(props: TableProps) {
   return (
     <Table className="w-full">
-      <TableHeader>
-        <TableRow className="bg-blue-300">
+      <TableHeader className="bg-blue-300">
+        <TableRow>
           <TableHead className="font-bold">Producto</TableHead>
           <TableHead className="font-bold">Precio</TableHead>
           <TableHead className="font-bold">Stock</TableHead>

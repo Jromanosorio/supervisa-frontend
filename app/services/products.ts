@@ -18,14 +18,14 @@ export async function getProductList(token: string): Promise<Product> {
     return response.json();
 }
 
-export async function addProduct(code: number, name: string, price: number, stock: number, token: string): Promise<any> {
+export async function addProduct(product: Product, token: string): Promise<any> {
     const response = await fetch(`${API_URL}/products`, {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({ code, name, price, stock }),
+        body: JSON.stringify(product),
     });
 
     if (!response.ok) {
