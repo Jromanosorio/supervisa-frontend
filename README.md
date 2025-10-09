@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚡ Este es el frontend para el proyecto Supervisa
 
-## Getting Started
+Este proyecto está construido con **Next.js** y se conecta a una API externa para gestionar la información.
 
-First, run the development server:
+---
+
+## 🚀 Instalación y configuración
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/Jromanosorio/supervisa-frontend
+cd supervisa-frontend
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+---
+
+### 3. Ejecución del proyecto
+
+Antes de iniciar el proyecto, asegúrate de que la **API** esté en ejecución.
+
+### Ejecutar el comando dentro de la carpeta de la API: supervisa-api
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Ejecutar el proyecto supervisa-frontend
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Desde la carpeta del proyecto:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev
+```
 
-## Learn More
+El proyecto estará disponible en:
+👉 **[http://localhost:3000](http://localhost:3000)**
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Tecnologías utilizadas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Shadcn/ui (para componentes)
+* Zustand (manejo de estado global)
+* React-icons y react-spinners (iconos y loaders)
+---
 
-## Deploy on Vercel
+## 🧠 Notas adicionales
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Asegúrate de que la API esté correctamente configurada y en ejecucion antes de ejecutar el frontend.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## ✨ Autor
+
+**Javier Roman Osorio**
+📧 [[jandres.roman.08@gmail.com](mailto:jandres.roman.08@gmail.com)]
