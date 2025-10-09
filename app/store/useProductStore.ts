@@ -19,7 +19,7 @@ export const useProductStore = create<ProductStore>()(
       clearProducts: () => set({ productList: [] }),
     }),
     {
-      name: "product-storage", // 👈 nombre de la clave en localStorage
+      name: "product-storage"
     }
   )
 );

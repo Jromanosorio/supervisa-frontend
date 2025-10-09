@@ -6,8 +6,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import Navbar from "../navbar/navbar";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 
-// SessionWrapper para centralizar el inicio de sesion y separarlo del layout
-
 export default function SessionWrapper({ children }: { children: React.ReactNode }) {
   const { storedValue } = useLocalStorage('session', null);
 
