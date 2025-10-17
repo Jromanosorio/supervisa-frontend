@@ -28,7 +28,7 @@ export default function Orders() {
   const createOrder = async (order: Order) => {
     try {
       await createNewOrder(order, storedValue?.token!)
-      fetchOrders()
+      
     } catch (error: any) {
       setFormError(error.message);
     }
@@ -36,8 +36,10 @@ export default function Orders() {
 
   const updateStatus = async (orderId: string, status: string) => {
     try {
+      
+      setOrderToUpdate(null)
       await updateOrderStatus(orderId, status, storedValue?.token!)
-      fetchOrders()
+      
     } catch (error: any) {
       setFormError(error.message);
     }
@@ -58,7 +60,7 @@ export default function Orders() {
 
   useEffect(() => {
     fetchOrders();
-  }, [storedValue, estado])
+  }, [storedValue, estado, ordersList])
 
   return (
     <div className="flex w-full container gap-6 m-auto px-6 my-4">
@@ -78,7 +80,7 @@ export default function Orders() {
           : <TableOrders data={ordersList} onEditData={setOrderToUpdate} />
       }
       {
-        orderToUpdate && <UpdateStatusForm error={formError} orderId={orderToUpdate._id} onSaveStatusFn={updateStatus} />
+        orderToUpdate ? <UpdateStatusForm error={formError} orderId={orderToUpdate._id} onSaveStatusFn={updateStatus} /> : ''
       }
 
       <AddOrderForm onCreateOrderFn={createOrder} error={formError} />
